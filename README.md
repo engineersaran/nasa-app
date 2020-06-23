@@ -1,5 +1,14 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Prerequisite
+
+Add ".env" file inside nasa-app folder. Please add the below entry in the file. Replace "YOUR API KEY" with actual key from https://api.nasa.gov/
+
+### `REACT_APP_NASA_KEY="YOUR API KEY"`
+
+Before executing `npm start` , perform `npm install` to install node modules to run nasa-app
+
+
 ## Available Scripts
 
 In the project directory, you can run:
