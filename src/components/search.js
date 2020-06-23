@@ -18,6 +18,7 @@ function Search() {
       let url = new URL(imagesApiUrl);
       url.search = new URLSearchParams({
         q: query,
+        media_type: "image",
       });
       fetch(url)
         .then((res) => res.json())
