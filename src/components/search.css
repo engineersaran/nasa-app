@@ -74,6 +74,11 @@ ul {
   width: 60px;
 }
 
+.slideshow__pagination__button {
+  flex: 0 0 auto;
+  width: 100px;
+}
+
 .slideshow__images {
   overflow: hidden;
   background-color: #d14f4f;

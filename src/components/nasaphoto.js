@@ -4,11 +4,13 @@ import NAVBAR from "./navbar";
 function NasaPhoto() {
   const [photoData, setPhotoData] = useState(null);
   const [dateInput, setDateInput] = useState("");
+  const [error, setError] = useState(null);
   const fetchURL = "https://api.nasa.gov/planetary/apod";
   const api_key = process.env.REACT_APP_NASA_KEY;
 
   const fetchDatePhoto = (event) => {
     event.preventDefault();
+    setError(null);
     let url = new URL(fetchURL);
     url.search = new URLSearchParams({
       api_key: api_key,
@@ -16,7 +18,14 @@ function NasaPhoto() {
     });
     fetch(url)
       .then((response) => response.json())
-      .then((data) => setPhotoData(data))
+      .then((data) => {
+        if (data) {
+          setPhotoData(data);
+          if (data.code && data.msg) {
+            setError(data.msg);
+          }
+        }
+      })
       .catch((error) => console.log("couldnt fetch image", error));
   };
 
@@ -27,6 +36,9 @@ function NasaPhoto() {
   return (
     <>
       <NAVBAR />
+      <center>
+        <h2>NASA Picture Of The Day</h2>
+      </center>
       <div className="nasa-photo">
         <form onSubmit={(event) => fetchDatePhoto(event)}>
           Enter a date (YYYY-MM-DD):
@@ -42,7 +54,12 @@ function NasaPhoto() {
           <input type="submit" value="Show the picture" />
         </form>
       </div>
-      {photoData && (
+      {error && (
+        <center>
+          <h2>{error}</h2>
+        </center>
+      )}
+      {!error && photoData && (
         <div className="nasa-photo">
           {photoData.media_type === "image" ? (
             <img src={photoData.url} alt={photoData.title} className="photo" />
